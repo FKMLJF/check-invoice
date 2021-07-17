@@ -11,16 +11,25 @@ import {AppComponent} from "../app.component";
 export class LoginComponent implements OnInit {
   form: any = {
     username: null,
-    password: null
+    password: null,
   };
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  rememberMe = false;
   roles: string[] = [];
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService,private router: Router, private app: AppComponent) { }
 
   ngOnInit(): void {
+  let ls = localStorage.getItem('remember');
+    if(ls != null){
+      let user = JSON.parse(ls);
+      this.form.username = user.username;
+      this.form.password = user.password;
+      this.rememberMe = true;
+    }
+
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
@@ -33,8 +42,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(username, password).subscribe(
       data => {
 
-        this.tokenStorage.saveToken(data.jwt);
-        this.tokenStorage.saveUser(username);
+        this.tokenStorage.saveToken(data.access_token);
+        this.tokenStorage.saveUser(JSON.stringify(data.user));
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
@@ -47,6 +56,14 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
       }
     );
+  }
+
+  onClickRememberMe(rememberMe: boolean) : void {
+    if(rememberMe){
+      localStorage.setItem('remember', JSON.stringify({username: this.form.username, password: this.form.password}))
+    }else{
+      localStorage.removeItem('remember');
+    }
   }
 
 }

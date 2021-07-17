@@ -9,7 +9,7 @@
         novalidate
         class="card p-3 mt-3"
       >
-        <h5>számlaLN👮‍</h5>
+        <h5>Belépésipont</h5>
         <div class="form-group">
           <label for="username">Felhasználónév <strong class="text-danger">*</strong></label>
           <input
@@ -23,7 +23,7 @@
             #username="ngModel"
           />
           <div
-            class="alert alert-danger"
+            class="text-danger bg-light small p-1 mt-1"
             role="alert"
             *ngIf="username.errors && f.submitted"
           >
@@ -44,7 +44,7 @@
             #password="ngModel"
           />
           <div
-            class="alert alert-danger"
+            class="text-danger small p-1 mt-1"
             role="alert"
             *ngIf="password.errors && f.submitted"
           >
@@ -54,6 +54,19 @@
             </div>
           </div>
         </div>
+
+        <div class="form-check-inline">
+          <label for="remember-me" class="pr-2 pt-1">Jegyezz meg
+         </label> <input
+          type="checkbox"
+          id="remember-me"
+          class="form-check"
+          name="remember-me"
+          [(ngModel)]="rememberMe"
+          (click)="onClickRememberMe(rememberMe = !rememberMe)"
+        />
+        </div>
+
         <div class="form-group d-flex flex-row-reverse">
           <button class="btn btn-outline-secondary btn-sm">
             Belépés

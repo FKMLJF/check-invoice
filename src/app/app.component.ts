@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
 
   isLoggedIn = false;
   username?: string;
+  isMenuCollapsed = true;
 
   constructor(private tokenStorageService: TokenStorageService) { }
 
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
-      this.username = window.sessionStorage.getItem("auth-user")?.toString();
+      this.username = this.tokenStorageService.getUser().username;
     }
   }
 

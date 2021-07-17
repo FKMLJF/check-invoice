@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {InvoiceService} from "../_services/invoice.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  constructor(private invoiceService: InvoiceService) { }
 
   ngOnInit(): void {
+    this.invoiceService .getDashboardContent().subscribe(
+      data => {
+       console.log(data)
+      },
+      err => {
+        console.log(err)
+      }
+    );
   }
 
 }

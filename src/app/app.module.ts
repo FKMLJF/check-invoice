@@ -11,6 +11,7 @@ import {HttpClientModule } from '@angular/common/http'
 import {authInterceptorProviders } from './_helpers/auth.interceptor';
 import {FormsModule} from "@angular/forms";
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -28,7 +29,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
