@@ -8,16 +8,41 @@ import {InvoiceService} from "../_services/invoice.service";
 })
 export class DashboardComponent implements OnInit {
   constructor(private invoiceService: InvoiceService) { }
+  data : any;
+  allDebit = "";
+  allReceivables = "";
+  paidChecked = false;
 
   ngOnInit(): void {
+   this.loadData();
+  }
+
+  public loadData(){
     this.invoiceService .getDashboardContent().subscribe(
       data => {
-       console.log(data)
+        this.data = data.invoices
+        this.allDebit = data.allDebit
+        this.allReceivables = data.allReceivables
       },
       err => {
         console.log(err)
       }
     );
+  }
+
+  public paid(id:string){
+      this.invoiceService.postPaid(id).subscribe(
+        data => {
+          this.loadData();
+          this.paidChecked = true;
+          setTimeout( () => {
+            this.paidChecked = false;
+          },3000);
+        },
+        err => {
+          console.log(err)
+        }
+      );
   }
 
 }

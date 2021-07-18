@@ -1,1 +1,41 @@
-<h3>Ide jöhet a fizetnivaló, meg egy színes szagos deshbórd</h3>
+<div class="alert alert-success" role="alert" *ngIf="paidChecked">
+  Sikeres kifizetés!!
+</div>
+<div class="card mt-2">
+<div class="row">
+  <div class="col-6 ">
+     Összes kintlévőség: <br><strong class="text-success">{{allReceivables}}</strong>
+  </div>
+  <div class="col-6 ">
+    Összes tartozás: <br><strong class="text-danger">{{allDebit}}</strong>
+  </div>
+</div>
+</div>
+
+<h4 class="mt-2">Fizetésre váró számlák</h4>
+<ng-template ngFor let-item [ngForOf]="data" let-i="index" >
+  <div class="card my-2">
+    <h5 class="card-header">{{item?.number}}</h5>
+    <div class="card-body">
+      <h6 class="card-title text-black-50">Szállító adatai</h6>
+      <blockquote class="p-0 m-0">Név: {{item?.sellerName}}</blockquote>
+      <blockquote class="p-0 m-0" >Adószám: {{item?.sellerTaxNumber}}</blockquote>
+      <hr>
+      <h6 class="card-title text-black-50">Vevő adatai</h6>
+      <blockquote class="p-0 m-0">Név: {{item?.buyerName}}</blockquote>
+      <blockquote class="p-0 m-0" >Adószám: {{item?.buyerTaxNumber}}</blockquote>
+      <hr>
+      <h6>Számla információk</h6>
+      <blockquote class="m-1 p-0">Fizetési határidő: <strong>{{item?.payment_due.substr(0,10).replaceAll('-','.')+'.'}}</strong></blockquote>
+      <blockquote class="m-1 p-0">Bruttó érték: <strong>{{item?.grossTotal}} Ft</strong></blockquote>
+      <div class="w-100 d-flex flex-row-reverse" [ngSwitch]="item.invoices_type">
+        <button (click)="paid(item?.id)" class="btn btn-outline-danger" *ngSwitchCase="'0'">Kifizetés</button>
+        <button (click)="paid(item?.id)" class="btn btn-outline-success" *ngSwitchCase="'1'">Vevő kifizette</button>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</ng-template>

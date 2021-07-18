@@ -15,4 +15,8 @@ export class InvoiceService {
   getDashboardContent(): Observable<any> {
     return this.http.post(API_URL + 'dashboard', { responseType: 'text' });
   }
+
+  postPaid(id: string): Observable<any> {
+    return this.http.post(API_URL + 'paid', { responseType: 'text', id: id });
+  }
 }
