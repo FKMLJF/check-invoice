@@ -9,78 +9,79 @@
         novalidate
         class="card p-3 mt-3"
       >
-        <h5>Belépésipont</h5>
-        <div class="form-group">
-          <label for="username">Felhasználónév <strong class="text-danger">*</strong></label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Felhasználónév"
-            name="username"
-            id="username"
-            [(ngModel)]="form.username"
-            required
-            #username="ngModel"
-          />
-          <div
-            class="text-danger bg-light small p-1 mt-1"
-            role="alert"
-            *ngIf="username.errors && f.submitted"
-          >
-            Felhasználónév megadása kötelező!
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password">Jelszó <strong class="text-danger">*</strong></label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            name="password"
-            placeholder="Jelszó"
-            [(ngModel)]="form.password"
-            required
-            minlength="6"
-            #password="ngModel"
-          />
-          <div
-            class="text-danger small p-1 mt-1"
-            role="alert"
-            *ngIf="password.errors && f.submitted"
-          >
-            <div *ngIf="password.errors.required">Jelszó mező megadása kötlezeő</div>
-            <div *ngIf="password.errors.minlength">
-             Jelsző mezőnek minimum 6 karakter hosszúnak kell lennie!
+        <fieldset disabled="{{disabled}}">
+          <h5>Belépésipont</h5>
+          <div class="form-group">
+            <label for="username">Felhasználónév <strong class="text-danger">*</strong></label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Felhasználónév"
+              name="username"
+              id="username"
+              [(ngModel)]="form.username"
+              required
+              #username="ngModel"
+            />
+            <div
+              class="text-danger bg-light small p-1 mt-1"
+              role="alert"
+              *ngIf="username.errors && f.submitted"
+            >
+              Felhasználónév megadása kötelező!
             </div>
           </div>
-        </div>
-
-        <div class="form-check-inline">
-          <label for="remember-me" class="pr-2 pt-1">Jegyezz meg
-         </label> <input
-          type="checkbox"
-          id="remember-me"
-          class="form-check"
-          name="remember-me"
-          [(ngModel)]="rememberMe"
-          (click)="onClickRememberMe(rememberMe = !rememberMe)"
-        />
-        </div>
-
-        <div class="form-group d-flex flex-row-reverse">
-          <button class="btn btn-outline-secondary btn-sm">
-            Belépés
-          </button>
-        </div>
-        <div class="form-group">
-          <div
-            class="alert alert-danger"
-            role="alert"
-            *ngIf="f.submitted && isLoginFailed"
-          >
-            Sikertelen belépés: {{ errorMessage }}
+          <div class="form-group">
+            <label for="password">Jelszó <strong class="text-danger">*</strong></label>
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              name="password"
+              placeholder="Jelszó"
+              [(ngModel)]="form.password"
+              required
+              minlength="6"
+              #password="ngModel"
+            />
+            <div
+              class="text-danger small p-1 mt-1"
+              role="alert"
+              *ngIf="password.errors && f.submitted"
+            >
+              <div *ngIf="password.errors.required">Jelszó mező megadása kötlezeő</div>
+              <div *ngIf="password.errors.minlength">
+                Jelsző mezőnek minimum 6 karakter hosszúnak kell lennie!
+              </div>
+            </div>
           </div>
-        </div>
+
+          <div class="form-check-inline">
+            <label for="remember-me" class="pr-2 pt-1">Jegyezz meg
+            </label> <input
+            type="checkbox"
+            id="remember-me"
+            class="form-check"
+            name="remember-me"
+            [(ngModel)]="rememberMe"
+            (click)="onClickRememberMe(rememberMe = !rememberMe)"
+          />
+          </div>
+
+          <div class="form-group d-flex flex-row-reverse">
+            <button class="btn btn-outline-secondary btn-sm" *ngIf="!disabled">Belépés</button>
+            <button class="btn btn-outline-secondary btn-sm" *ngIf="disabled">&nbsp;&nbsp;&nbsp;<i class="fas fa-spinner fa-pulse"></i>&nbsp;&nbsp;&nbsp;</button>
+          </div>
+          <div class="form-group">
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && isLoginFailed"
+            >
+              Sikertelen belépés: {{ errorMessage }}
+            </div>
+          </div>
+        </fieldset>
       </form>
 
       <div class="alert alert-success" *ngIf="isLoggedIn">

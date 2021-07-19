@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  disabled="";
   rememberMe = false;
   roles: string[] = [];
 
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { username, password } = this.form;
-
+  this.disabled = "disabled";
     this.authService.login(username, password).subscribe(
       data => {
 
@@ -49,11 +50,14 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
         this.app.check();
+        this.disabled = "";
         this.router.navigate(['/dashboard'])
       },
       err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
+        this.disabled = "";
+
       }
     );
   }
