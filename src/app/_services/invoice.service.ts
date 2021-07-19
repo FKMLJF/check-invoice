@@ -12,8 +12,8 @@ export class InvoiceService {
 
   constructor(private http: HttpClient) { }
 
-  getDashboardContent(): Observable<any> {
-    return this.http.post(API_URL + 'dashboard', { responseType: 'text' });
+  getDashboardContent(search:string = ''): Observable<any> {
+    return this.http.post(API_URL + 'dashboard', { responseType: 'text', search : search });
   }
 
   postPaid(id: string): Observable<any> {

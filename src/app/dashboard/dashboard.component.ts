@@ -11,14 +11,15 @@ export class DashboardComponent implements OnInit {
   data : any;
   allDebit = "";
   allReceivables = "";
+  searchText = "";
   paidChecked = false;
 
   ngOnInit(): void {
    this.loadData();
   }
 
-  public loadData(){
-    this.invoiceService .getDashboardContent().subscribe(
+  public loadData(search:string=""){
+    this.invoiceService.getDashboardContent(search).subscribe(
       data => {
         this.data = data.invoices
         this.allDebit = data.allDebit
@@ -43,6 +44,22 @@ export class DashboardComponent implements OnInit {
           console.log(err)
         }
       );
+  }
+
+  handleOnkeyDown(event:any){
+    if (event.key === "Enter") {
+      this.loadData(this.searchText);
+    }
+  }
+
+  handleSearch(){
+    this.loadData(this.searchText);
+  }
+
+  handlOnSearch(){
+    if(this.searchText == ""){
+      this.loadData(this.searchText);
+    }
   }
 
 }

@@ -3,16 +3,28 @@
 </div>
 <div class="card mt-2">
 <div class="row">
-  <div class="col-6 ">
+  <div class="col-6 p-4">
      Összes kintlévőség: <br><strong class="text-success">{{allReceivables}}</strong>
   </div>
-  <div class="col-6 ">
+  <div class="col-6 p-4">
     Összes tartozás: <br><strong class="text-danger">{{allDebit}}</strong>
   </div>
 </div>
 </div>
 
 <h4 class="mt-2">Fizetésre váró számlák</h4>
+
+<div class="input-group mb-3">
+  <input class="form-control" type="search" placeholder="Keresés..."
+         (keydown)="handleOnkeyDown($event)"
+         (search)="handlOnSearch()"
+         [(ngModel)]="searchText"/>
+  <div class="input-group-append">
+    <button class="input-group-text" (click)="handleSearch()"><i class="fas fa-search"></i></button>
+  </div>
+</div>
+
+
 <ng-template ngFor let-item [ngForOf]="data" let-i="index" >
   <div class="card my-2">
     <h5 class="card-header">{{item?.number}}</h5>
