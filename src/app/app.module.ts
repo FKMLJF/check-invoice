@@ -9,9 +9,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import {HttpClientModule } from '@angular/common/http'
 import {authInterceptorProviders } from './_helpers/auth.interceptor';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
+import { DeleteInvoiceComponent } from './delete-invoice/delete-invoice.component';
+import { UpdateInvoiceComponent } from './update-invoice/update-invoice.component';
 
 
 
@@ -23,14 +26,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     ProfileComponent,
     BoardUserComponent,
-    DashboardComponent
+    DashboardComponent,
+    CreateInvoiceComponent,
+    DeleteInvoiceComponent,
+    UpdateInvoiceComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

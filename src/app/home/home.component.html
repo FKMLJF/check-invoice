@@ -1,6 +1,9 @@
 <div class="container">
   <header class="jumbotron">
-    <h3>Publikus főoldal</h3>
+    <h3>Angular 12 + Java Spring Boot</h3>
+    <p>A kipróbáláshoz, regisztrálj, vagy jelentkezz be!</p>
+    <button class="btn btn-primary mr-2" [routerLink]="'../register'">Regisztráció</button>
+    <button class="btn btn-light" [routerLink]="'../login'">Bejelentkezés</button>
     <p>{{ content }}</p>
   </header>
 </div>

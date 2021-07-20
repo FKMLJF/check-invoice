@@ -8,6 +8,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {CanActivateUser} from "./_services/can.active"
+import {CreateInvoiceComponent} from "./create-invoice/create-invoice.component";
+import {UpdateInvoiceComponent} from "./update-invoice/update-invoice.component";
+import {DeleteInvoiceComponent} from "./delete-invoice/delete-invoice.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -16,6 +19,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [CanActivateUser] },
   { path: 'user', component: BoardUserComponent, canActivate: [CanActivateUser] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [CanActivateUser] },
+  { path: 'create-invoice', component: CreateInvoiceComponent, canActivate: [CanActivateUser] },
+  { path: 'create-invoice/:id', component: UpdateInvoiceComponent, canActivate: [CanActivateUser] },
+  { path: 'delete-invoice/:id', component: DeleteInvoiceComponent, canActivate: [CanActivateUser] },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 //canActivate: [CanActivateUser]

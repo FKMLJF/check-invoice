@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
-      this.username = this.tokenStorageService.getUser().username;
+      this.username = this.tokenStorageService.getUser().userName;
     }
   }
 

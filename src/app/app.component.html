@@ -12,7 +12,7 @@
     <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
       <ul class="navbar-nav" *ngIf="isLoggedIn" >
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'.'" (click)="isMenuCollapsed = true">Beállítások</a>
+          <a class="nav-link" [routerLink]="'create-invoice'" (click)="isMenuCollapsed = true">Új Számla</a>
         </li>
       </ul>
 

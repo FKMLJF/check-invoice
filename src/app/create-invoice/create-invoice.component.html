@@ -1,0 +1,156 @@
+<div class="row px-2 justify-content-center">
+
+<form [formGroup]="createInvoice" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()" class="card col-12 col-sm-6 py-2">
+<fieldset disabled="{{disabled}}">
+  <div class="d-flex py-1">
+    <a class="btn btn-outline-light"  [routerLink]="'/dashboard'"><i class="fas fa-chevron-left text-black-50"></i> </a>
+    <h5 class="text-black-50 flex-grow-1 pt-2">Új számla</h5>
+  </div>
+  <div *ngIf="errors != ''" class="alert alert-danger">
+      {{errors}}
+  </div>
+
+
+  <div class="form-group">
+    <label for="invoiceNumber">Számlaszám <strong class="text-danger">*</strong></label>
+    <input id="invoiceNumber"
+           class="form-control form-control-sm"
+           type="text"
+           placeholder="Számlaszám"
+           formControlName="invoiceNumber"
+           [ngClass]="{ 'is-invalid': submitted && f.invoiceNumber.errors }"
+    />
+    <div *ngIf="submitted && f.invoiceNumber.errors" class="invalid-feedback">
+      <div *ngIf="f.invoiceNumber.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="sellerName">Szállító neve <strong class="text-danger">*</strong></label>
+    <input id="sellerName"
+           class="form-control form-control-sm"
+           type="text"
+           placeholder="Szállító neve"
+           formControlName="sellerName"
+           [ngClass]="{ 'is-invalid': submitted && f.sellerName.errors }"
+    />
+    <div *ngIf="submitted && f.sellerName.errors" class="invalid-feedback">
+      <div *ngIf="f.sellerName.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="sellerTaxNumber">Szállító adószáma <strong class="text-danger">*</strong></label>
+    <input id="sellerTaxNumber"
+           class="form-control form-control-sm"
+           type="text"
+           placeholder="Szállító adószám"
+           formControlName="sellerTaxNumber"
+           [ngClass]="{ 'is-invalid': submitted && f.sellerTaxNumber.errors }"
+    />
+    <div *ngIf="submitted && f.sellerTaxNumber.errors" class="invalid-feedback">
+      <div *ngIf="f.sellerTaxNumber.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="buyerName">Vevő neve <strong class="text-danger">*</strong></label>
+    <input id="buyerName"
+           class="form-control form-control-sm"
+           type="text"
+           placeholder="Vevő neve"
+           formControlName="buyerName"
+           [ngClass]="{ 'is-invalid': submitted && f.buyerName.errors }"
+    />
+    <div *ngIf="submitted && f.buyerName.errors" class="invalid-feedback">
+      <div *ngIf="f.buyerName.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="buyerTaxNumber">Vevő adószáma <strong class="text-danger">*</strong></label>
+    <input id="buyerTaxNumber"
+           class="form-control form-control-sm"
+           type="text"
+           placeholder="Vevő adószáma"
+           formControlName="buyerTaxNumber"
+           [ngClass]="{ 'is-invalid': submitted && f.buyerTaxNumber.errors }"
+    />
+    <div *ngIf="submitted && f.buyerTaxNumber.errors" class="invalid-feedback">
+      <div *ngIf="f.buyerTaxNumber.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="createdAt">Kelte dátum <strong class="text-danger">*</strong></label>
+    <input id="createdAt"
+           class="form-control form-control-sm"
+           type="date"
+           placeholder="Kelte dátum "
+           formControlName="createdAt"
+           [ngClass]="{ 'is-invalid': submitted && f.createdAt.errors }"
+    />
+    <div *ngIf="submitted && f.createdAt.errors" class="invalid-feedback">
+      <div *ngIf="f.createdAt.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="paymentDue">Fizetési határidő <strong class="text-danger">*</strong></label>
+    <input id="paymentDue"
+           class="form-control form-control-sm"
+           type="date"
+           placeholder="Fizetési határidő "
+           formControlName="paymentDue"
+           [ngClass]="{ 'is-invalid': submitted && f.paymentDue.errors }"
+    />
+    <div *ngIf="submitted && f.paymentDue.errors" class="invalid-feedback">
+      <div *ngIf="f.paymentDue.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="grossTotal">Bruttó érték <strong class="text-danger">*</strong></label>
+    <div class="input-group input-group-sm">
+      <input id="grossTotal"
+             class="form-control form-control-sm"
+             type="text"
+             placeholder="Bruttó érték "
+             formControlName="grossTotal"
+
+             [ngClass]="{ 'is-invalid': submitted && f.grossTotal.errors }"
+      />
+      <div class="input-group-append">
+        <span class="input-group-text">Ft</span>
+      </div>
+    </div>
+
+    <div *ngIf="submitted && f.grossTotal.errors" class="invalid-feedback">
+      <div *ngIf="f.grossTotal.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="invoicesType">Irány <strong class="text-danger">*</strong></label>
+    <select id="invoicesType"
+            class="form-control form-control-sm"  formControlName="invoicesType"     [ngClass]="{ 'is-invalid': submitted && f.invoicesType.errors }">
+      <option value="">Válassz számla "típust"</option>
+      <option value="0">Szállító</option>
+      <option value="1">Vevő</option>
+
+    </select>
+    <div *ngIf="submitted && f.invoicesType.errors" class="invalid-feedback">
+      <div *ngIf="f.invoicesType.errors.required">Kötelező mező!</div>
+    </div>
+  </div>
+
+  <div class="w-100 d-flex flex-row-reverse">
+    <button class="btn btn-outline-secondary mx-1"  type="submit">Ok</button>
+    <button class="btn btn-outline-warning"  type="button" (click)="onReset()">Alaphelyzet</button>
+  </div>
+
+</fieldset>
+</form>
+
+</div>

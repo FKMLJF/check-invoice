@@ -1,33 +1,57 @@
 <div class="alert alert-success" role="alert" *ngIf="paidChecked">
   Sikeres kifizetés!!
 </div>
+<div class="my-2">
+  <a class="h5 text-decoration-none" [routerLink]="'/create-invoice'"><i class="fas fa-plus text-success"></i> Új számla létrehozása</a>
+</div>
 <div class="card mt-2">
 <div class="row">
   <div class="col-6 p-4">
-     Összes kintlévőség: <br><strong class="text-success">{{allReceivables}}</strong>
+     Összes kintlévőség: <br>
+    <strong class="text-success" *ngIf="!loading">{{allReceivables}}</strong>
+    <strong class="text-success" *ngIf="loading"><i class="fas fa-spinner fa-pulse"></i></strong>
   </div>
   <div class="col-6 p-4">
-    Összes tartozás: <br><strong class="text-danger">{{allDebit}}</strong>
+    Összes tartozás: <br>
+    <strong class="text-danger" *ngIf="!loading">{{allDebit}}</strong>
+    <strong class="text-danger" *ngIf="loading"><i class="fas fa-spinner fa-pulse"></i></strong>
   </div>
 </div>
 </div>
-
 <h4 class="mt-2">Fizetésre váró számlák</h4>
 
-<div class="input-group mb-3">
-  <input class="form-control" type="search" placeholder="Keresés..."
-         (keydown)="handleOnkeyDown($event)"
-         (search)="handlOnSearch()"
-         [(ngModel)]="searchText"/>
-  <div class="input-group-append">
-    <button class="input-group-text" (click)="handleSearch()"><i class="fas fa-search"></i></button>
+
+    <div class="input-group mb-3">
+      <input class="form-control" type="search" placeholder="Keresés..."
+             (keydown)="handleOnkeyDown($event)"
+             (search)="handlOnSearch()"
+             [(ngModel)]="searchText"/>
+      <div class="input-group-append">
+        <select (change)="handleChange($event)" class="form-control" style="max-width: 100px">
+          <option value="buyerName">Vevő neve</option>
+          <option value="buyerTaxNumber">Vevő adószáma</option>
+          <option value="sellerName">Szállító neve</option>
+          <option value="sellerTaxNumber">Szállító adószáma</option>
+          <option value="paymentDue">Határidő</option>
+          <option value="invoiceNumber">Számlasorszám</option>
+          <option value="invoicesType">Számla típus 0:Szállító 1:Vevő</option>
+        </select>
+        <button class="input-group-text" (click)="handleSearch()"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+
+
+
+
+<div class="row justify-content-center" *ngIf="loading" >
+  <div class="col-12 col-sm-6 text-center">
+    <h3><i class="fas fa-spinner fa-pulse"></i></h3>
   </div>
 </div>
 
-
-<ng-template ngFor let-item [ngForOf]="data" let-i="index" >
+<ng-template *ngIf="!loading"  ngFor let-item [ngForOf]="data" let-i="index" >
   <div class="card my-2">
-    <h5 class="card-header">{{item?.number}}</h5>
+    <h5 class="card-header">{{item?.invoiceNumber}}</h5>
     <div class="card-body">
       <h6 class="card-title text-black-50">Szállító adatai</h6>
       <blockquote class="p-0 m-0">Név: {{item?.sellerName}}</blockquote>
@@ -38,13 +62,13 @@
       <blockquote class="p-0 m-0" >Adószám: {{item?.buyerTaxNumber}}</blockquote>
       <hr>
       <h6>Számla információk</h6>
-      <blockquote class="m-1 p-0">Fizetési határidő: <strong>{{item?.payment_due.substr(0,10).replaceAll('-','.')+'.'}}</strong></blockquote>
+      <blockquote class="m-1 p-0">Fizetési határidő: <strong>{{item?.paymentDue.substr(0,10).replaceAll('-','.')+'.'}}</strong></blockquote>
+      <blockquote class="m-1 p-0">Fizetési határidő: <strong>{{item?.createdAt.substr(0,10).replaceAll('-','.')+'.'}}</strong></blockquote>
       <blockquote class="m-1 p-0">Bruttó érték: <strong>{{item?.grossTotal}} Ft</strong></blockquote>
-      <div class="w-100 d-flex flex-row-reverse" [ngSwitch]="item.invoices_type">
-        <button (click)="paid(item?.id)" class="btn btn-outline-danger" *ngSwitchCase="'0'">Kifizetés</button>
-        <button (click)="paid(item?.id)" class="btn btn-outline-success" *ngSwitchCase="'1'">Vevő kifizette</button>
-
-
+      <div class="w-100 d-flex flex-row-reverse" >
+        <button (click)="paid(item?.id)" class="btn btn-outline-success ml-2">Lezárás</button>
+        <button class="btn btn-outline-secondary ml-2" (click)="handleEdit(item?.id)" >Szerkesztés</button>
+        <button class="btn btn-outline-danger" (click)="handleDelete(item?.id)" >Törlés</button>
       </div>
 
     </div>
